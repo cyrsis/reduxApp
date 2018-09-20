@@ -5,7 +5,8 @@ import { createStore } from 'redux';
 
 
 //Step3
-let reducer = function (state = [], action) {
+let reducer = function (state = {books: [], categories: []}
+    , action) {
     switch (action.type) {
         case "INCREMENT":
             return state + action.payload
@@ -13,7 +14,12 @@ let reducer = function (state = [], action) {
         case "decrease":
             return state - action.payload;
         case "POST_BOOK":
-            return state = action.payload;
+            //never use push or splice
+            // let books = state.books.concat(action.payload)
+            return {books: [...state.books, ...action.payload]} //best practice
+
+            // return {books}
+            //return state = action.payload;
 
             break;
     }
@@ -38,7 +44,7 @@ store.dispatch(
             id: 1,
             title: 'this is a book title',
             description: "This is a book desc",
-            price: 33.33
+            price: 33.11
         },
             {
                 id: 2,
@@ -51,6 +57,36 @@ store.dispatch(
     }
 )
 
+store.dispatch(
+    {
+        type: "POST_BOOK",
+        payload: [{
+            id: 3,
+            title: 'this is a book title',
+            description: "This is a book desc",
+            price: 33.33
+        },
+            {
+                id: 4,
+                title: 'this is a book title 4',
+                description: "This is a book desc 4",
+                price: 33.44
+            },
+
+        ]
+    }
+)
+
+store.dispatch({type: "POST_BOOK", payload: [
+        {
+            id: 5,
+            title: 'this is a book title',
+            description: "This is a book desc",
+            price: 33.55
+        }
+
+
+    ]})
 // store.dispatch({type: "INCREMENT",payload: 1})
 // store.dispatch({type: "INCREMENT",payload: 1})
 // store.dispatch({type: "INCREMENT",payload: 1})
