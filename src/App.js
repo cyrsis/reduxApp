@@ -1,96 +1,83 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { createStore } from 'redux';
+import { applyMiddleware,createStore } from 'redux';
+import reducers from './reducers/reducerIndex';
+import { addToCart } from "./actions/cartActions";
+import { deletebooks, postbooks, updatebook } from "./actions/booksActions";
+import logger from 'redux-logger';
+
+//Step 1
 
 
-//Step3
-let reducer = function (state = {books: [], categories: []}
-    , action) {
-    switch (action.type) {
-        case "INCREMENT":
-            return state + action.payload
-            break;
-        case "decrease":
-            return state - action.payload;
-        case "POST_BOOK":
-            //never use push or splice
-            // let books = state.books.concat(action.payload)
-            return {books: [...state.books, ...action.payload]} //best practice
-
-            // return {books}
-            //return state = action.payload;
-
-            break;
-    }
-    return state
-}
+const middleware = applyMiddleware(logger)
+const store = createStore(reducers,middleware);
+//Use logger instead of subscribe
+// store.subscribe(function () {
+//     console.log(`Current state is `, store.getState())
+// })
 
 
-//Set 1
-
-const store = createStore(reducer);
-
-
-store.subscribe(function () {
-    console.log(`Current state is `, store.getState())
-})
-
-//Steps 2
-store.dispatch(
-    {
-        type: "POST_BOOK",
-        payload: [{
+store.dispatch(postbooks(
+    [
+        {
             id: 1,
             title: 'this is a book title',
             description: "This is a book desc",
             price: 33.11
         },
-            {
-                id: 2,
-                title: 'this is a book title 2',
-                description: "This is a book desc 2",
-                price: 33.22
-            },
-
-        ]
-    }
-)
-
-store.dispatch(
-    {
-        type: "POST_BOOK",
-        payload: [{
-            id: 3,
-            title: 'this is a book title',
-            description: "This is a book desc",
-            price: 33.33
-        },
-            {
-                id: 4,
-                title: 'this is a book title 4',
-                description: "This is a book desc 4",
-                price: 33.44
-            },
-
-        ]
-    }
-)
-
-store.dispatch({type: "POST_BOOK", payload: [
         {
-            id: 5,
-            title: 'this is a book title',
-            description: "This is a book desc",
-            price: 33.55
-        }
+            id: 2,
+            title: 'this is a book title 2',
+            description: "This is a book desc 2",
+            price: 33.22
+        },
+    ]
+))
+store.dispatch(updatebook({
+    id: 2,
+    title: "Book2 Updated Title"
+}))
+store.dispatch(deletebooks({id: 2}))
+
+//Steps 2
+// store.dispatch(
+//     {
+//         type: "POST_BOOK",
+//         payload: [{
+//             id: 1,
+//             title: 'this is a book title',
+//             description: "This is a book desc",
+//             price: 33.11
+//         },
+//             {
+//                 id: 2,
+//                 title: 'this is a book title 2',
+//                 description: "This is a book desc 2",
+//                 price: 33.22
+//             },
+//
+//         ]
+//     }
+// )
 
 
-    ]})
+// store.dispatch({
+//     type: "UPDATE_BOOK", payload: {
+//         id: 3,
+//         title: "Book2 Updated Title"
+//
+//     }
+// })
+
+// store.dispatch({type: "DELETE_BOOK", payload: {id: 2}})
 // store.dispatch({type: "INCREMENT",payload: 1})
 // store.dispatch({type: "INCREMENT",payload: 1})
 // store.dispatch({type: "INCREMENT",payload: 1})
 // store.dispatch({type: "decrease",payload:3})
+
+// Cart action
+store.dispatch(addToCart([{id: 1}]))
 
 
 class App extends Component {
