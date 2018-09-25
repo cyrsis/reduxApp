@@ -3,8 +3,9 @@
         case "ADD_TO_CART":
             console.log("Add_to_cart call")
             return {cart: [...state.cart, action.payload]}
-
             break;
+        default:
+            return state
 
     }
     return state

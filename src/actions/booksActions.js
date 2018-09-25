@@ -1,8 +1,10 @@
 
 //Post a book
+import constant from "../constant";
+
 export function postbooks(book) {
     return {
-         type:"POST_BOOK",
+         type: constant.POST_BOOK,
          payload:book
     }
 }
@@ -11,7 +13,7 @@ export function postbooks(book) {
 //Delete a book
 export function deletebooks (id) {
     return {
-        type: "DELETE_BOOK",
+        type: constant.DELETE_BOOK,
         payload:id
     }
 }
@@ -21,7 +23,20 @@ export function deletebooks (id) {
 
 export function updatebook(book) {
     return {
-        type: "UPDATE_BOOK",
+        type: constant.UPDATE_BOOK,
         payload:book
+    }
+}
+
+export function somebooks(book) {
+    return {
+        type: constant.SOME_BOOK,
+        payload: book
+    }
+}
+
+export function getbooks() {
+    return {
+        type: constant.GET_BOOKS,
     }
 }

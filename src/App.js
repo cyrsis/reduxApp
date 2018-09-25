@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import { applyMiddleware,createStore } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
 import reducers from './reducers/reducerIndex';
 import { addToCart } from "./actions/cartActions";
-import { deletebooks, postbooks, updatebook } from "./actions/booksActions";
+import { updatebook } from "./actions/booksActions";
 import logger from 'redux-logger';
+import Bookslist from "./components/pages/Bookslist";
+import { Provider } from "react-redux";
+
 
 //Step 1
 
@@ -18,27 +20,27 @@ const store = createStore(reducers,middleware);
 // })
 
 
-store.dispatch(postbooks(
-    [
-        {
-            id: 1,
-            title: 'this is a book title',
-            description: "This is a book desc",
-            price: 33.11
-        },
-        {
-            id: 2,
-            title: 'this is a book title 2',
-            description: "This is a book desc 2",
-            price: 33.22
-        },
-    ]
-))
+// store.dispatch(postbooks(
+//     [
+//         {
+//             id: 1,
+//             title: 'this is a book title',
+//             description: "This is a book desc",
+//             price: 33.11
+//         },
+//         {
+//             id: 2,
+//             title: 'this is a book title 2',
+//             description: "This is a book desc 2",
+//             price: 33.22
+//         },
+//     ]
+// ))
 store.dispatch(updatebook({
     id: 2,
     title: "Book2 Updated Title"
 }))
-store.dispatch(deletebooks({id: 2}))
+//store.dispatch(deletebooks({id: 2}))
 
 //Steps 2
 // store.dispatch(
@@ -85,10 +87,13 @@ class App extends Component {
 
     render() {
         return (
-            <div className="App">
-                <h1>hello there</h1>
 
-            </div>
+            <Provider store={store}>
+                <div className="App">
+                    <Bookslist/>
+
+                </div>
+            </Provider>
         );
     }
 }
