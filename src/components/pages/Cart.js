@@ -2,10 +2,31 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { Panel, Col, Well, Button, Row, Label, ButtonGroup } from 'react-bootstrap';
 import { bindActionCreators } from "redux";
-import { deleteCartItem } from "../../actions/cartActions";
+import { deleteCartItem, getCart, updateCart } from "../../actions/cartActions";
 
 
 class Cart extends Component {
+
+    onDelete = (_id) => {
+        const currentBookToDelete = this.props._cart
+
+        const indexToDelete = currentBookToDelete.findIndex(
+            function (cart) {
+                return cart._id === _id;
+            }
+        )
+
+        // console.log(...currentBookToDelete.slice(0, indexToDelete));
+        // console.log(...currentBookToDelete.slice(indexToDelete + 1));
+
+        //Same as concat
+        let cartAfterDelete = [...currentBookToDelete.slice(0, indexToDelete), ...currentBookToDelete.slice(indexToDelete + 1)]
+
+
+        this.props._deleteCartItem(cartAfterDelete);
+
+
+    }
 
 
     render() {
@@ -45,21 +66,22 @@ class Cart extends Component {
                             <h6> usd.{cartArr.price}</h6>
                         </Col>
                         <Col xs={12} sm={2}>
-                            <h6> qty. <Label bsStyle={"sucess"}></Label></h6>
+                            <h6> qty. <Label bsStyle={"success"}></Label></h6>
                         </Col>
                         <Col xs={6} sm={4}>
                             <ButtonGroup style={{minWidth: '300px'}}>
                                 <Button bsStyle={"default"} bsSize={"small"}>-</Button>
                                 <Button bsStyle={"default"} bsSize={"small"}>+</Button>
                                 <span>     </span>
-                                <Button bsStyle={"danger"} bsSize={"small"}>delete</Button>
+                                <Button bsStyle={"danger"} bsSize={"small"}
+                                        onClick={this.onDelete.bind(this, cartArr._id)}>delete</Button>
                             </ButtonGroup>
 
                         </Col>
 
                     </Row>
                 </Panel>);
-        })
+        },this)
 
         return (
             <Panel header="Cart" bsStyle={"primary"}>
@@ -79,8 +101,9 @@ function mapStateToProps(state) { //Just like the store.subscribe method
 
 function mapDispatchToProps(dispatch) { //Just like the store.subscribe method
     return bindActionCreators({
-        _deleteCartItem :deleteCartItem,
-
+        _deleteCartItem: deleteCartItem,
+        _updateCart: updateCart,
+        _getCart: getCart
     }, dispatch)
 }
 

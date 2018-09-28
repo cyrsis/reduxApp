@@ -1,4 +1,4 @@
-const constant ={
+const Constant ={
     Increase :"Increase",
     Decrease: "Decrease",
     POST_BOOK: "POST_BOOK",
@@ -14,4 +14,4 @@ const constant ={
 }
 
 
-export default constant
+export default Constant
