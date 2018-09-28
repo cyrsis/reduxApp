@@ -13,7 +13,7 @@ import { Provider } from "react-redux";
 
 
 const middleware = applyMiddleware(logger)
-const store = createStore(reducers,middleware);
+const store = createStore(reducers, middleware);
 //Use logger instead of subscribe
 // store.subscribe(function () {
 //     console.log(`Current state is `, store.getState())
@@ -36,10 +36,12 @@ const store = createStore(reducers,middleware);
 //         },
 //     ]
 // ))
-store.dispatch(updatebook({
-    id: 2,
-    title: "Book2 Updated Title"
-}))
+
+// store.dispatch(updatebook({
+//     id: 2,
+//     title: "Book2 Updated Title"
+// }))
+
 //store.dispatch(deletebooks({id: 2}))
 
 //Steps 2
@@ -79,7 +81,7 @@ store.dispatch(updatebook({
 // store.dispatch({type: "decrease",payload:3})
 
 // Cart action
-store.dispatch(addToCart([{id: 1}]))
+//store.dispatch(addToCart([{id: 1}]))
 
 
 class App extends Component {
