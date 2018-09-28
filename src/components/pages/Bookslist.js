@@ -4,6 +4,7 @@ import { bindActionCreators } from "redux";
 import { getbooks } from "../../actions/booksActions";
 import { Col, Grid, Row } from 'react-bootstrap'
 import BookItem from "./BookItem";
+import BooksForm from "./BooksForm";
 
 class Bookslist extends Component {
 
@@ -12,7 +13,7 @@ class Bookslist extends Component {
     }
 
     render() {
-        const Booklists = this.props.books.map(function (booksArray) {
+        const _Booklists = this.props.books.map(function (booksArray) {
             return (
                 <Col xs={12} sm={6} md={4} key={booksArray.id}>
                     <BookItem id={booksArray.id}
@@ -28,7 +29,10 @@ class Bookslist extends Component {
 
             <Grid>
                 <Row styles={{marginTop: '15px'}}>
-                    {Booklists}
+                    <Col xs={12} sm={6}>
+                          <BooksForm/>
+                    </Col>
+                    {_Booklists}
                 </Row>
             </Grid>
         );
