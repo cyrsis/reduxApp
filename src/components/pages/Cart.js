@@ -25,7 +25,14 @@ class Cart extends Component {
 
         this.props._deleteCartItem(cartAfterDelete);
 
+    }
 
+    onIncreament = (_id) => {
+        this.props._updateCart(_id,1)
+    }
+
+    onDecreament = (_id) => {
+        this.props._updateCart(_id,-1)
     }
 
 
@@ -66,12 +73,12 @@ class Cart extends Component {
                             <h6> usd.{cartArr.price}</h6>
                         </Col>
                         <Col xs={12} sm={2}>
-                            <h6> qty. <Label bsStyle={"success"}></Label></h6>
+                            <h6> qty. <Label bsStyle={"success"}>{cartArr.quantity}</Label></h6>
                         </Col>
                         <Col xs={6} sm={4}>
                             <ButtonGroup style={{minWidth: '300px'}}>
-                                <Button bsStyle={"default"} bsSize={"small"}>-</Button>
-                                <Button bsStyle={"default"} bsSize={"small"}>+</Button>
+                                <Button bsStyle={"default"} bsSize={"small"} onClick={this.onDecreament.bind(this,cartArr._id)}>-</Button>
+                                <Button bsStyle={"default"} bsSize={"small"} onClick={this.onIncreament.bind(this,cartArr._id)}>+</Button>
                                 <span>     </span>
                                 <Button bsStyle={"danger"} bsSize={"small"}
                                         onClick={this.onDelete.bind(this, cartArr._id)}>delete</Button>

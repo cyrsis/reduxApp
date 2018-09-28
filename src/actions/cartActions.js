@@ -18,12 +18,12 @@ export function addToCart(book) {
 
 
 //Update
-export function updateCart(args) {
+export function updateCart(_id,unit) {
     return {
         type: Constant.UPDATE_CART,
-        payload: args
+        _id:_id,
+        unit: unit
     }
-
 
 }
 
